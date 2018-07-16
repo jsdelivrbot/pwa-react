@@ -1,35 +1,48 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+import Products from './Products';
 import './App.css';
 
+
+
 class App extends Component {
-   
-  render() {
-    
-    return (
-      <div className="App">   
-         <form id="submit1" >
-        <legend>Add your product in our store</legend>
+	
 
-        <div class="form-group" >
-          <label for="">ID</label>
-          <input id="id" type="text" class="form-control" id="" placeholder="Input field"/>
-          <br/>
-          <label for="">Product name</label>
-          <input id="name" type="text" class="form-control" id="" placeholder="Input field"/>
-          <label for="">Price</label>
-          <input id="price" type="text" class="form-control" id="" placeholder="Input field"/>
+	render() {
 
-        </div>
-        <button  type="submit" class="btn btn-primary">Submit</button>  
-      </form>
-      </div>
-    );
-  }
+		return (
+			<div className="App">   
+			<h1>Our store:</h1>
+			<Products products={this.props.products}/>
+
+			</div>
+			);
+	}
 }
 
 export default App;
 
+
+// class App extends Component {
+// 	state = { toggle : true }
+// 	toggle = () => {
+// 		this.setState({
+// 			toggle : !this.state.toggle
+// 		})
+// 	}
+
+// 	render() {
+
+// 		return (
+// 			<div className="App">   
+// 			{this.state.toggle && 
+// 				<h1> Product name is  {this.props.name} </h1>
+// 			}
+// 			<button onClick={this.toggle}> Show/hide </button>
+// 			<Search  text={this.props.text} toggle={this.state.toggle} />
+
+
+// 			</div>
+// 			);
+// 	}
 
 
