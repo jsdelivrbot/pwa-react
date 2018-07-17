@@ -1,0 +1,19 @@
+#name {
+	color:#0055ff;
+	font-family: "Times New Roman", Times, serif;
+    font-size: 23px;
+}
+
+#price {
+	font-weight: bold;
+    font-size: 25px;
+}
+
+#butt {
+	margin-bottom: 15px;
+	font-size: 18px;
+}
+
+#img1 {
+    border-radius: 25px;
+}

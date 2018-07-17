@@ -11,7 +11,6 @@ class App extends Component {
 
 		return (
 			<div className="App">   
-			<h1>Our store:</h1>
 			<Products products={this.props.products}/>
 
 			</div>
