@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import Product from './Product';
 import './App.css';
 import './Products.css';
+import logo from './img/search-flat.png';
+
 
 class Products extends Component {
 	state = { 
 		search:"",
 		products: this.props.products
-
+		
 	}
 
 	//kshu behet kur ndryshojme state
@@ -16,6 +18,10 @@ class Products extends Component {
 			search : event.target.value.substr(0,20)
 		})
 		console.log(this.state.search);
+	}
+
+	addCart = (event) =>{
+
 	}
 
 
@@ -36,11 +42,13 @@ class Products extends Component {
 					<button type="submit"  > Add this product </button>
 				</form> ––> 
 				*/}
+				<img src={logo} height="70px" width="70px"/> 
+				&nbsp; &nbsp;
 				<input  id="search" type="text" placeholder="Search" value={this.state.search} onChange={this.update}/> 
 				<br/> <br/>
 				<div className="row" >
-					{filteredProducts.map((product) => {
-						return <Product product={product}  key={product.id} / > 
+					{filteredProducts.map((product,i) => {
+						return <Product product={product}  key={i} index={i}  / > 
 					})}
 
 				</div>
