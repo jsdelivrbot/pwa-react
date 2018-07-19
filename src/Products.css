@@ -5,3 +5,13 @@
 
 
 }
+
+.App {
+  text-align: center;
+}
+
+#cart {
+	color:#006ab1;
+	font-weight: bold;
+	font-size: 17px;
+}

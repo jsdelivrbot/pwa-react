@@ -3,6 +3,7 @@ import Product from './Product';
 import './App.css';
 import './Products.css';
 import logo from './img/search-flat.png';
+import cart from './img/cart.png';
 
 
 
@@ -21,9 +22,9 @@ class Products extends Component {
 		console.log(this.state.search);
 	}
 
-	addCart = (event) =>{
-
-	}
+	// addCart = (index) =>  (event) =>{
+	// 	console.log(index);
+	// }
 
 
 	render() {
@@ -34,22 +35,20 @@ class Products extends Component {
 			}
 		);
 		return (
-			<div >   
+			<div className="App">   
 
-				{/* <form onSubmit={this.addProduct}>
-				A JSX comment 
-					<input type="text" ref="name" placeholder="Name"/>
-					<input type="text" ref="price" placeholder="$"/>
-					<button type="submit"  > Add this product </button>
-				</form> ––> 
-				*/}
+
 				<img src={logo}alt=" " height="70px" width="70px"/> 
 				&nbsp; &nbsp;
 				<input  id="search" type="text" placeholder="Search" value={this.state.search} onChange={this.update}/> 
+				&nbsp; &nbsp; 
+				<span onClick={this.props.showCart}>
+					<img src={cart} height="52"/> <span id="cart" alt="">Shopping Cart</span>
+				</span>
 				<br/> <br/>
 				<div className="row" >
 					{filteredProducts.map((product,i) => {
-						return <Product product={product}  key={i} index={i}  / > 
+						return <Product product={product}  key={i} index={i} addCart={this.props.addCart} / > 
 					})}
 
 				</div>
@@ -64,7 +63,16 @@ class Products extends Component {
 
 export default Products;
 
-	{/*addProduct =(event) => {
+	{/*
+
+				{/* <form onSubmit={this.addProduct}>
+				A JSX comment 
+					<input type="text" ref="name" placeholder="Name"/>
+					<input type="text" ref="price" placeholder="$"/>
+					<button type="submit"  > Add this product </button>
+				</form> ––> 
+				}
+	addProduct =(event) => {
 		event.preventDefault();
 		//kjo i nxjerr gjitha props e state e refse
 		//console.log(this);
