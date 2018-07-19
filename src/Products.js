@@ -5,6 +5,7 @@ import './Products.css';
 import logo from './img/search-flat.png';
 
 
+
 class Products extends Component {
 	state = { 
 		search:"",
@@ -42,7 +43,7 @@ class Products extends Component {
 					<button type="submit"  > Add this product </button>
 				</form> ––> 
 				*/}
-				<img src={logo} height="70px" width="70px"/> 
+				<img src={logo}alt=" " height="70px" width="70px"/> 
 				&nbsp; &nbsp;
 				<input  id="search" type="text" placeholder="Search" value={this.state.search} onChange={this.update}/> 
 				<br/> <br/>
