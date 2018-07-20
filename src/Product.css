@@ -1,6 +1,8 @@
+
+
 #name {
 	color:#0055ff;
-	font-family: "Times New Roman", Times, serif;
+	font-family: "Arial";
     font-size: 23px;
 }
 
@@ -16,4 +18,17 @@
 
 #img1 {
     border-radius: 25px;
+}
+
+#quantity {
+	font-size:20px;
+}
+#q {
+
+ font-family: "Helvetica";
+ font-weight: 600;
+ font-size:  15px;
+
+
+
 }

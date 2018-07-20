@@ -12,7 +12,7 @@ var dbRequest = indexedDB.open("OurStore", 1);
 dbRequest.onupgradeneeded = function(event) { 
 	var db = event.target.result;
 	var objectStore=db.createObjectStore('products', {keyPath: 'id'});
-	var objectStore=db.createObjectStore('Cart', {keyPath: 'i', autoIncrement: true});
+	var objectStore=db.createObjectStore('Cart', {keyPath: 'id'});
 
 	objectStore.transaction.oncomplete = function(event) {
 		var trans = db.transaction('products', 'readwrite');
@@ -20,10 +20,8 @@ dbRequest.onupgradeneeded = function(event) {
 		for (var i = 0; i < products.length; i++) {
 			store.add(products[i]);
 		}
-
 	}
 }
-
 
 class Main extends Component {
 	//react router 
@@ -32,23 +30,43 @@ class Main extends Component {
 		show_cart:false
 	}
 
-	addCart = (index) =>  (event) =>{
+	addCart = (index,quantity1) =>  (event) =>{
+		console.log(quantity1);
 		var p = products[index];
 		var id = p.id;
 		var name = p.name ;
 		var price = p.price;
-		var src = p.price;
+		var src = p.src;
+		var quantity= quantity1;
 		var product = {
 			id:id,
 			name:name,
 			price:price,
+			quantity:quantity1,
 			src:src
 		}
-		console.log(product);
+
 		var db = dbRequest.result;
-		var trans_c = db.transaction('Cart', 'readwrite');
-		var store_c = trans_c.objectStore('Cart');
-		store_c.add(product);
+		var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
+		var x= trans.add(product);
+		//e shtova produktin nese ka qene me perpara atehere
+		x.onerror = function(event){
+			//duhet trans tjt pasi i pari eshte bugg sepse error
+			var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
+			console.log("bad");
+			var request1 = trans.get(id);
+			console.log(request1);
+			request1.onsuccess = function(event) {
+				var data = event.target.result;
+				data.quantity=data.quantity+quantity;
+				var requestUpdate = trans.put(data);
+			}
+
+
+
+		}
+
+		
 	}
 
 	showCart = (event) =>{
@@ -67,13 +85,13 @@ class Main extends Component {
 
 		return (
 			<div>
-				<nav class="navbar navbar-inverse">
-					<div class="container-fluid">
-					  <div class="navbar-header">
-					    <a class="navbar-brand" onClick={this.showProducts}>Taleas</a>
+				<nav className="navbar navbar-inverse">
+					<div className="container-fluid">
+					  <div className="navbar-header">
+					    <a className="navbar-brand" onClick={this.showProducts}>Taleas</a>
 					  </div>
-					  <ul class="nav navbar-nav">
-					    <li class="active"><a onClick={this.showProducts}>Home</a></li>
+					  <ul className="nav navbar-nav">
+					    <li className="active"><a onClick={this.showProducts}>Home</a></li>
 					    
 					  </ul>
 					</div>
