@@ -43,7 +43,7 @@ class Products extends Component {
 				<input  id="search" type="text" placeholder="Search" value={this.state.search} onChange={this.update}/> 
 				&nbsp; &nbsp; 
 				<span onClick={this.props.showCart}>
-					<img src={cart} height="52"/> <span id="cart" alt="">Shopping Cart</span>
+					<img src={cart} height="52" alt=""/> <span id="cart">Shopping Cart</span>
 				</span>
 				<br/> <br/>
 				<div className="row" >
@@ -63,7 +63,7 @@ class Products extends Component {
 
 export default Products;
 
-	{/*
+	
 
 				{/* <form onSubmit={this.addProduct}>
 				A JSX comment 
