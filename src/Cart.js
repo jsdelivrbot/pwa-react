@@ -3,7 +3,6 @@ import './Cart.css';
 import CartProducts from './CartProducts';
 
 
-var dbRequest = indexedDB.open("OurStore", 1);
 
 let arr = [];
 
@@ -14,6 +13,8 @@ class Cart extends Component {
 	}
 
 	cartdb = (event2) => {
+		var dbRequest = indexedDB.open("OurStore", 1);
+		dbRequest.onsuccess=function(event){
 		var db = dbRequest.result;
 		var cartdb = db.transaction("Cart", "readwrite").objectStore("Cart");
 		arr = [];
@@ -44,6 +45,8 @@ class Cart extends Component {
 					})
 				}
 			}
+		}
+		db.close();
 		}
 	}
 

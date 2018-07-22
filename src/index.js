@@ -6,12 +6,13 @@ import Products from './Products';
 import Cart from './Cart';
 import Xat from './Xat';
 import registerServiceWorker from './registerServiceWorker';
+
 var dbRequest = indexedDB.open("OurStore", 1);
 
 var products = require('./products.json'); 
 
 
-dbRequest.onupgradeneeded = function(event) { 
+var ren = dbRequest.onupgradeneeded = function(event) { 
 	var db = event.target.result;
 	var objectStore=db.createObjectStore('products', {keyPath: 'id'});
 	db.createObjectStore('Cart', {keyPath: 'id'});
@@ -23,6 +24,10 @@ dbRequest.onupgradeneeded = function(event) {
 			store.add(products[i]);
 		}
 	}
+	
+}
+ren.onsuccess = function(event) {
+	dbRequest.close();
 }
 
 class Main extends Component {
