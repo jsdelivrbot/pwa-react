@@ -42,17 +42,17 @@ class Main extends Component {
 		var quantity1 = parseInt(quantity2);
 		if(quantity1>0){
 			var p = products[index];
-			var id = p.id;
-			var price = p.price;
-			var src = p.src;
-			var quantity= quantity1;
-			var product = {
-				id:id,
-				//eslint-disable-next-line
-				name:name,
-				price:price,
-				quantity:quantity1,
-				src:src
+				var id = p.id;
+				var price = p.price;
+				var src = p.src;
+				var name = p.name;
+				var quantity= quantity1;
+				var product = {
+					id:id,
+					name:name,
+					price:price,
+					quantity:quantity1,
+					src:src
 			}
 
 			var db = dbRequest.result;

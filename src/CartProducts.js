@@ -9,17 +9,21 @@ class CartProducts extends Component {
 		return (
 			<div >
 			{console.log(this.props.product)}
-				<div className="col-md-3">
-					<img id="img1" alt=" " src={this.props.product.src} height="250" width="210" /> <br/>
-					<span id="name" > {this.props.product.name } </span> <br/>
-					<span id="price"> {this.props.product.price}$ </span> <br/>
-					<span id="q"> Quantity: </span> 
-
-
-		
-					<br/>
-					<button type="button" id="butt" className="btn btn-primary" >
-					<img src={logo} alt=" " width="30" height="30" /> Add to cart</button>
+				<div className="row"> 
+					{console.log(this.props.product)}
+					<div className="col-md-3">
+						<img id="img1" alt=" " src={this.props.product.src} height="250" width="210" /> <br/>
+					</div>
+					<div className="col-md-3">
+						<span id="name" > {this.props.product.name} </span> <br/>
+					</div>
+					<div className="col-md-3">
+						<span id="q"> Quantity: {this.props.product.quantity} </span> 
+					</div>
+					<div className="col-md-3">
+						<span id="price">Price: {this.props.product.price}$ </span> <br/>
+					</div>
+	
 				</div>
 			</div>
 			);

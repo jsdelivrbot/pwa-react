@@ -47,6 +47,7 @@ class Cart extends Component {
 			}
 		}
 		db.close();
+
 		}
 	}
 
@@ -72,7 +73,6 @@ class Cart extends Component {
 					})
 				}		
 
-				<h1> renaldo</h1>
 			</div>
 			);
 		
