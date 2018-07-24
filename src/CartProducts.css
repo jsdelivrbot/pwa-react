@@ -1,0 +1,35 @@
+.show{
+display:block;
+}
+
+.hide{
+display:none;
+}
+
+#name2 {
+	color:#6a29bb;
+	font-family: "Arial";
+    font-size: 23px;
+    font-weight:550; 
+}
+
+#price2 {
+	font-weight: bold;
+    font-size: 25px;
+}
+
+
+#img2 {
+    border-radius: 25px;
+}
+
+
+#q2 {
+
+ font-family: "Helvetica";
+ font-weight: 300;
+ font-size:  19px;
+
+
+
+}

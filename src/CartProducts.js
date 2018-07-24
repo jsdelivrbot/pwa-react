@@ -1,30 +1,93 @@
 import React, { Component } from 'react';
-import './Product.css';
+import './CartProducts.css';
 import logo from './img/cart.png';
-
+var ren;
+var total = 0.0;
 class CartProducts extends Component {
+	state = {
+		notshow :false,	
+
+	}
+	
+
+	remove = (index) => (event2) => {
+		var data;
+	
+		index = index.toString();
+		var dbRequest = indexedDB.open("OurStore", 1);
+		dbRequest.onsuccess=function(event){
+			var db = dbRequest.result;
+			var db1 = dbRequest.result;
+
+			var Tot = db1.transaction('Total', 'readwrite').objectStore('Total');
+			var cartdb = db.transaction("Cart", "readwrite").objectStore("Cart");
+
+			var result =cartdb.get(index);
+			result.onsuccess = function(event) {
+				data = parseFloat(event.target.result.price.toFixed(2)) * parseFloat(event.target.result.quantity.toFixed(2)) ;
+			}
+				var result23 =Tot.get("total");
+				result23.onerror=function(event){ console.log(result23.error)};
+				result23.onsuccess=function(event){ 
+					total= event.target.result.price;
+					total= parseFloat(total.toFixed(2)) - data;
+					
+					var update = {
+						id:"total",
+						price:total
+					}
+					console.log("totali"+total)
+					Tot.put(update);
+					ren(22);
+
+					console.log(ren(2));
+				}
+			// }
+			var objectStoreRequest = cartdb.delete(index);
+			objectStoreRequest.onsuccess = function(event) {
+			    // report the success of our request
+		  
+			}
+			db.close();
+		}
+		if(!this.state.notshow){
+			this.setState({
+				notshow : true,
+			})
+	}
+
+	}	
+
+
+
 
 	render() {
-		
+			ren=this.props.refresh();
 		return (
 			<div >
-			{console.log(this.props.product)}
-				<div className="row"> 
-					{console.log(this.props.product)}
-					<div className="col-md-3">
-						<img id="img1" alt=" " src={this.props.product.src} height="250" width="210" /> <br/>
+		
+				{!this.state.notshow && (<div className="row"> 
+					<div className="col-md-2 col-md-offset-2">
+						<img id="img2" alt=" " src={this.props.product.src} height="150" width="150" />
+						 <br/><br/><br/><br/>
 					</div>
-					<div className="col-md-3">
-						<span id="name" > {this.props.product.name} </span> <br/>
+						<br/> <br/>
+					<div className="col-md-2">
+						<span id="name2" > {this.props.product.name} </span> 
 					</div>
-					<div className="col-md-3">
-						<span id="q"> Quantity: {this.props.product.quantity} </span> 
+					<div className="col-md-2">
+						<span id="q2"> Quantity: {this.props.product.quantity} </span> 
 					</div>
-					<div className="col-md-3">
-						<span id="price">Price: {this.props.product.price}$ </span> <br/>
+					<div className="col-md-2">
+						<span id="price2">Price: {this.props.product.price*this.props.product.quantity}$ </span> 
 					</div>
-	
-				</div>
+					<div className="col-md-1">
+						<button type="button" onClick={this.remove(this.props.product.id)} className="btn btn-default">Remove</button>
+					</div>
+					
+				</div>)}
+				{this.state.notshow && <button type="button" id="clickButton" 
+				class="btn btn-default col-md-1 col-md-offset-10" onClick={this.props.refresh(total)}>Update</button> }
 			</div>
 			);
 		

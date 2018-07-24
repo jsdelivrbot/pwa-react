@@ -5,6 +5,7 @@ import './index.css';
 import Products from './Products';
 import Cart from './Cart';
 import Xat from './Xat';
+import app from './app'
 import registerServiceWorker from './registerServiceWorker';
 
 var dbRequest = indexedDB.open("OurStore", 1);
@@ -16,6 +17,8 @@ var ren = dbRequest.onupgradeneeded = function(event) {
 	var db = event.target.result;
 	var objectStore=db.createObjectStore('products', {keyPath: 'id'});
 	db.createObjectStore('Cart', {keyPath: 'id'});
+    db.createObjectStore('Total', {keyPath: 'id'});
+
 
 	objectStore.transaction.oncomplete = function(event) {
 		var trans = db.transaction('products', 'readwrite');
@@ -23,6 +26,13 @@ var ren = dbRequest.onupgradeneeded = function(event) {
 		for (var i = 0; i < products.length; i++) {
 			store.add(products[i]);
 		}
+		var trans1 = db.transaction('Total', 'readwrite').objectStore('Total');
+		var product={
+			id: "total",
+			price: 10
+		}
+		trans1.add(product)
+
 	}
 	
 }
@@ -110,6 +120,10 @@ class Main extends Component {
 					    <li className="active"><a onClick={this.showProducts}>Home</a></li>
 					    <li> <a onClick={this.showXat}>Chat with Us</a></li>
 					  </ul>
+					  <ul className="nav navbar-nav navbar-right">
+					       <li id="bardh">Free Shipping && Unlimited stock(Just like their talents)</li>
+					       
+					     </ul>
 					</div>
 				</nav>
 

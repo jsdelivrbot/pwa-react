@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Product.css';
 import logo from './img/cart.png';
+import registerServiceWorker from './registerServiceWorker';
 
 class Product extends Component {
 	quantity = (event) => {
@@ -39,7 +40,7 @@ class Product extends Component {
 			<span id="name" > {this.props.product.name } </span> <br/>
 			<span id="price"> {this.props.product.price}$ </span> <br/>
 			<span id="q"> Quantity: </span> 
-			<input id="quantity" type="number" ref="name"  defaultValue={this.state.quantity} 
+			<input id="quantity" type="number" ref="name" min="1" defaultValue={this.state.quantity} 
 			onKeyUp={this.intOnly}
 			onBlur={this.quantity} />
 			
@@ -55,3 +56,4 @@ class Product extends Component {
 
 export default Product;
 
+registerServiceWorker();
