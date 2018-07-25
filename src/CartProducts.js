@@ -38,9 +38,8 @@ class CartProducts extends Component {
 					}
 					console.log("totali"+total)
 					Tot.put(update);
-					ren(22);
+					ren("kot");
 
-					console.log(ren(2));
 				}
 			// }
 			var objectStoreRequest = cartdb.delete(index);
@@ -85,9 +84,7 @@ class CartProducts extends Component {
 						<button type="button" onClick={this.remove(this.props.product.id)} className="btn btn-default">Remove</button>
 					</div>
 					
-				</div>)}
-				{this.state.notshow && <button type="button" id="clickButton" 
-				class="btn btn-default col-md-1 col-md-offset-10" onClick={this.props.refresh(total)}>Update</button> }
+				</div>)}		
 			</div>
 			);
 		

@@ -5,7 +5,6 @@ import './index.css';
 import Products from './Products';
 import Cart from './Cart';
 import Xat from './Xat';
-import app from './app'
 import registerServiceWorker from './registerServiceWorker';
 
 var dbRequest = indexedDB.open("OurStore", 1);

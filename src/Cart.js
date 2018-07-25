@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Cart.css';
 import CartProducts from './CartProducts';
 import Checkout from './Checkout';
+import idb from 'idb';
+
 
 let arr = [];
 let total = 0;
@@ -89,16 +91,37 @@ class Cart extends Component {
 	}
 */
 
-	refresh_t=(total) => (event) => {
-			console.log("dwadawdwatotal nga parent"+total);
 
-			this.setState({
-				total : total,
-			})
-			
-			
-			
+
+	refresh_t=(kot) => (event) => {
+	// 	const dbPromise = idb.open('OurStore', 1);
+
+	// 	dbPromise.then(db => {
+	// 	  const tx = db.transaction('Total', 'readwrite');
+	// 	  tx.objectStore('Total').delete("total");
+	// 	  return tx.complete;
+	// 	});
+	// }
+		
+
+		const dbPromise = idb.open('OurStore', 1);
+
+		dbPromise.then(db => {
+		  return db.transaction('Total')
+		    .objectStore('Total').get("total");
+		}).then(obj => {ren(obj,this)}	);	
+		
+		
+		function ren(X,This){
+		console.log(X);
+		This.setState({
+			total:X.price
+
+		})
+		}
 	}
+
+
 
 	render() {
 		
