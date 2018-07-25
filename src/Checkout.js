@@ -68,10 +68,10 @@ class Checkout extends Component {
 							</div>
 							<div id="DIV_31">
 								<div id="DIV_32">
-									 <a id="A_33" href="ptc?_trksid=p2046448.m2466">Proceed to checkout</a>
+									 <a id="A_33" href="#">Proceed to checkout</a>
 								</div>
 								<div id="DIV_34">
-									<a id="A_35" href="https://www.ebay.com/myb/Summary">Continue shopping</a>
+									<a id="A_35" href="#">Continue shopping</a>
 								</div>
 							</div>
 						</div>
