@@ -7,18 +7,7 @@
 
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
-// Set a name for the current cache
-var cacheName = 'v11'; 
 
-// Default files to always cache
-var cacheFiles = [
-  
-'./Products',
-  './Cart',
-  // 'json1.txt',
-  'http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css',
-  'http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'
-]
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.

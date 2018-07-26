@@ -6,6 +6,8 @@ import Products from './Products';
 import Cart from './Cart';
 import Xat from './Xat';
 import registerServiceWorker from './registerServiceWorker';
+import idb from 'idb';
+
 
 var dbRequest = indexedDB.open("OurStore", 1);
 
@@ -64,25 +66,33 @@ class Main extends Component {
 					src:src
 			}
 
-			var db = dbRequest.result;
-			var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
-			var x= trans.add(product);
-			//e shtova produktin nese ka qene me perpara atehere
-			x.onerror = function(event){
-				//duhet trans tjt pasi i pari eshte bugg sepse error
-				var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
-				var request1 = trans.get(id);
-				request1.onsuccess = function(event) {
-					var data = event.target.result;
-					data.quantity=data.quantity+quantity;
-					trans.put(data);
-				}
+			// var db = dbRequest.result;
+			// var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
+			// var x= trans.add(product);
+			// //e shtova produktin nese ka qene me perpara atehere
+			// x.onerror = function(event){
+			// 	//duhet trans tjt pasi i pari eshte bugg sepse error
+			// 	var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
+			// 	var request1 = trans.get(id);
+			// 	request1.onsuccess = function(event) {
+			// 		var data = event.target.result;
+			// 		data.quantity=data.quantity+quantity;
+			// 		trans.put(data);
+			// 	} 
+			// }
+			const dbPromise = idb.open('OurStore', 1);
 
+			dbPromise.then(db => {
+			  const tx = db.transaction('Cart', 'readwrite');
+			  tx.objectStore('Cart').put({p});
+			  return tx.complete;
+			});
 
+			
+			}
 
-		}
 	}	
-	}
+
 
 	showCart = (event) =>{
 		this.setState({
