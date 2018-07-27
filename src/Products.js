@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Product from './Product';
 import './App.css';
 import './Products.css';
-import logo from './img/search-flat.png';
-import cart from './img/cart.png';
+import {logo} from './img/search-flat.png';
+import {cart} from './img/cart.png';
 import registerServiceWorker from './registerServiceWorker';
 
 
