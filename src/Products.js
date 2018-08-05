@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import Product from './Product';
 import './App.css';
 import './Products.css';
-import logo from './img/search-flat.png';
-import cart from './img/cart.png';
 import registerServiceWorker from './registerServiceWorker';
 
+var logo = "https://image.ibb.co/mt4CUT/search_flat.png";
+var cart = "https://image.ibb.co/gMcz9T/cart.png";
 
 
 class Products extends Component {

@@ -5,12 +5,67 @@ import './index.css';
 import Products from './Products';
 import Cart from './Cart';
 import Xat from './Xat';
-import app from './app'
 import registerServiceWorker from './registerServiceWorker';
 
 var dbRequest = indexedDB.open("OurStore", 1);
 
-var products = require('./products.json'); 
+var products = 
+[ 
+{
+	"id":"0", 
+	"name":"Laptop USB FAN", 
+	"price":3.29 ,
+	"src": "https://i.ebayimg.com/images/g/SfQAAOSwbtNaBnS3/s-l1600.jpg"
+
+},
+{
+	"id":"1", 
+	"name":"I am Groot T-shirt", 
+	"price":8.89 ,
+	"src": "https://i.ebayimg.com/images/g/HXoAAOSwhzRaWFA5/s-l1600.jpg"
+},
+{
+	"id":"2", 
+	"name":"Samsung s8 I am groot case", 
+	"price":3.99 ,
+	"src": "https://i.ebayimg.com/images/g/xp8AAOSwxphbId4S/s-l1600.jpg"
+},
+{
+	"id":"3", 
+	"name":"I am Groot toy", 
+	"price":3.29 ,
+	"src": "https://i.ebayimg.com/images/g/ZpMAAOSw7GRZHVFw/s-l1600.jpg"
+},
+{
+	"id":"4", 
+	"name":"UGREEN Quick Charge 3.0", 
+	"price":13.29 ,
+	"src": "https://i.ebayimg.com/images/g/HWIAAOSwSeVaLj3M/s-l1600.jpg"
+
+},
+{
+	"id":"5", 
+	"name":"Bluetooth Car Charger + MP3", 
+	"price":8.89 ,
+	"src": "https://i.ebayimg.com/images/g/R2oAAOSwh5hbC-sB/s-l500.jpg"
+},
+{
+	"id":"6", 
+	"name":"Fujifilm Instax Instant Camera", 
+	"price":88.19 ,
+	"src": "https://i.ebayimg.com/images/g/ZTUAAOSwuINbRcx-/s-l1600.jpg"
+},
+{
+	"id":"7", 
+	"name":"ZOSI Security Camera System", 
+	"price":3.29 ,
+	"src": "https://i.ebayimg.com/images/g/2zEAAOSwZrdbRKqN/s-l1600.jpg"
+}
+
+]
+
+
+; 
 
 
 var ren = dbRequest.onupgradeneeded = function(event) { 
