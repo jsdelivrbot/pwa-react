@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './CartProducts.css';
-import logo from './img/cart.png';
+var logo = "https://image.ibb.co/mt4CUT/search_flat.png";
+var cart = "https://image.ibb.co/gMcz9T/cart.png";
 var ren;
 var total = 0.0;
 class CartProducts extends Component {

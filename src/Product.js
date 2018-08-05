@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './Product.css';
-import logo from './img/cart.png';
 import registerServiceWorker from './registerServiceWorker';
+
+var logo = "https://image.ibb.co/mt4CUT/search_flat.png";
+var cart = "https://image.ibb.co/gMcz9T/cart.png";
 
 class Product extends Component {
 	quantity = (event) => {
@@ -47,7 +49,7 @@ class Product extends Component {
 
 			<br/>
 			<button type="button" id="butt" className="btn btn-primary" onClick={this.props.addCart(this.props.index,this.state.quantity)} >
-			<img src={logo} alt=" " width="30" height="30" /> Add to cart</button>
+			<img src={cart} alt=" " width="30" height="30" /> Add to cart</button>
 			</div>
 			);
 		
