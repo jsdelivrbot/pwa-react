@@ -35,10 +35,11 @@ class Product extends Component {
 
 
 	render() {
+		var link="http://localhost/prestashop/api/images/products/"+this.props.product.id+"/"+this.props.product.id_default_image;
 		
 		return (
-			<div className="col-md-3">
-			<img id="img1" alt=" " src={this.props.product.src} height="250" width="210" /> <br/>
+			<div className="col-md-3 XXX">
+			<img id="img1" alt=" " src={link} height="250" width="210" /> <br/>
 			<span id="name" > {this.props.product.name } </span> <br/>
 			<span id="price"> {this.props.product.price}$ </span> <br/>
 			<span id="q"> Quantity: </span> 

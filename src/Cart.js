@@ -34,16 +34,16 @@ class Cart extends Component {
 				let id =cursor.value.id;
 				let quantity =cursor.value.quantity;
 				let price =cursor.value.price;
-				let src = cursor.value.src;
+				let id_default_image = cursor.value.id_default_image;
 				let product = {
 					id:id,
 					name:name,
 					price:price,
 					quantity:quantity,
-					src:src
+					id_default_image:id_default_image
 				}
 				arr.push(product);	
-				total=total+ (parseFloat(product.price.toFixed(2)) * parseFloat(product.quantity.toFixed(2)));
+				total=total+ product.price * product.quantity;
 				count=count+1;
 				// console.log("totali"+total+"count"+count);
 

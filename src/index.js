@@ -6,123 +6,94 @@ import Products from './Products';
 import Cart from './Cart';
 import Xat from './Xat';
 import registerServiceWorker from './registerServiceWorker';
+import axios from 'axios';
 
 var dbRequest = indexedDB.open("OurStore", 1);
 
-var products = 
-[ 
-{
-	"id":"0", 
-	"name":"Laptop USB FAN", 
-	"price":3.29 ,
-	"src": "https://i.ebayimg.com/images/g/SfQAAOSwbtNaBnS3/s-l1600.jpg"
-
-},
-{
-	"id":"1", 
-	"name":"I am Groot T-shirt", 
-	"price":8.89 ,
-	"src": "https://i.ebayimg.com/images/g/HXoAAOSwhzRaWFA5/s-l1600.jpg"
-},
-{
-	"id":"2", 
-	"name":"Samsung s8 I am groot case", 
-	"price":3.99 ,
-	"src": "https://i.ebayimg.com/images/g/xp8AAOSwxphbId4S/s-l1600.jpg"
-},
-{
-	"id":"3", 
-	"name":"I am Groot toy", 
-	"price":3.29 ,
-	"src": "https://i.ebayimg.com/images/g/ZpMAAOSw7GRZHVFw/s-l1600.jpg"
-},
-{
-	"id":"4", 
-	"name":"UGREEN Quick Charge 3.0", 
-	"price":13.29 ,
-	"src": "https://i.ebayimg.com/images/g/HWIAAOSwSeVaLj3M/s-l1600.jpg"
-
-},
-{
-	"id":"5", 
-	"name":"Bluetooth Car Charger + MP3", 
-	"price":8.89 ,
-	"src": "https://i.ebayimg.com/images/g/R2oAAOSwh5hbC-sB/s-l500.jpg"
-},
-{
-	"id":"6", 
-	"name":"Fujifilm Instax Instant Camera", 
-	"price":88.19 ,
-	"src": "https://i.ebayimg.com/images/g/ZTUAAOSwuINbRcx-/s-l1600.jpg"
-},
-{
-	"id":"7", 
-	"name":"ZOSI Security Camera System", 
-	"price":3.29 ,
-	"src": "https://i.ebayimg.com/images/g/2zEAAOSwZrdbRKqN/s-l1600.jpg"
-}
-
-]
-
-
-; 
-
-
-var ren = dbRequest.onupgradeneeded = function(event) { 
-	var db = event.target.result;
-	var objectStore=db.createObjectStore('products', {keyPath: 'id'});
-	db.createObjectStore('Cart', {keyPath: 'id'});
-    db.createObjectStore('Total', {keyPath: 'id'});
-
-
-	objectStore.transaction.oncomplete = function(event) {
-		var trans = db.transaction('products', 'readwrite');
-		var store = trans.objectStore('products');
-		for (var i = 0; i < products.length; i++) {
-			store.add(products[i]);
-		}
-		var trans1 = db.transaction('Total', 'readwrite').objectStore('Total');
-		var product={
-			id: "total",
-			price: 10
-		}
-		trans1.add(product)
-
-	}
-	
-}
-ren.onsuccess = function(event) {
-	dbRequest.close();
-}
-
+var products;
 class Main extends Component {
 	//react router 
 	state = { 
 		cart:this.props.cart,
 		show_cart:false,
-		show_xat :false
+		show_xat :false,
+		products: []
 	}
 
-	addCart = (index,quantity2) =>  (event) =>{
-		var quantity1 = parseInt(quantity2);
-		if(quantity1>0){
-			var p = products[index];
-				var id = p.id;
-				var price = p.price;
-				var src = p.src;
-				var name = p.name;
-				var quantity= quantity1;
-				var product = {
-					id:id,
-					name:name,
-					price:price,
-					quantity:quantity1,
-					src:src
-			}
+	componentDidMount() {
+		axios.get('http://localhost/prestashop/api/products&display=[id,name,price,id_default_image]&output_format=JSON&ws_key=62JZQAAGY3CQ8V4NLV5XGQYAMCMMQKIM'
+			)
+		.then(res => {
+			console.log(res.data)
+			products=res.data.products;
 
-			var db = dbRequest.result;
-			var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
-			var x= trans.add(product);
+			products.forEach(function(part, index, product) {
+			  product[index].id = String(product[index].id);
+			  product[index].price = parseFloat(product[index].price).toFixed(2);
+			  
+			});
+
+			console.log(products);
+
+			this.setState({
+				products : res.data.products
+			})	
+
+			var ren = dbRequest.onupgradeneeded = function(event) { 
+				var db = event.target.result;
+				var objectStore=db.createObjectStore('products', {keyPath: 'id'});
+				db.createObjectStore('Cart', {keyPath: 'id'});
+				db.createObjectStore('Total', {keyPath: 'id'});
+
+
+				objectStore.transaction.oncomplete = function(event) {
+					var trans = db.transaction('products', 'readwrite');
+					var store = trans.objectStore('products');
+					for (var i = 0; i < products.length; i++) {
+						store.add(products[i]);
+					}
+					var trans1 = db.transaction('Total', 'readwrite').objectStore('Total');
+					var product={
+						id: "total",
+						price: 10
+					}
+					trans1.add(product)
+
+				}
+
+			}
+			ren.onsuccess = function(event) {
+				dbRequest.close();
+			}
+		
+
+
+		});   
+
+	}
+
+
+
+addCart = (index,quantity2) =>  (event) =>{
+	var quantity1 = parseInt(quantity2);
+	if(quantity1>0){
+		var p = products[index];
+		var id = p.id;
+		var price = p.price;
+		var id_default_image = p.id_default_image;
+		var name = p.name;
+		var quantity= quantity1;
+		var product = {
+			id:id,
+			name:name,
+			price:price,
+			quantity:quantity1,
+			id_default_image:id_default_image
+		}
+
+		var db = dbRequest.result;
+		var trans = db.transaction('Cart', 'readwrite').objectStore('Cart');
+		var x= trans.add(product);
 			//e shtova produktin nese ka qene me perpara atehere
 			x.onerror = function(event){
 				//duhet trans tjt pasi i pari eshte bugg sepse error
@@ -136,8 +107,8 @@ class Main extends Component {
 
 
 
-		}
-	}	
+			}
+		}	
 	}
 
 	showCart = (event) =>{
@@ -166,41 +137,41 @@ class Main extends Component {
 		return (
 
 			<div>
-				<nav className="navbar navbar-inverse">
-					<div className="container-fluid">
-					  <div className="navbar-header">
-					    <a className="navbar-brand" onClick={this.showProducts}>Taleas</a>
-					  </div>
-					  <ul className="nav navbar-nav">
-					    <li className="active"><a onClick={this.showProducts}>Home</a></li>
-					    <li> <a onClick={this.showXat}>Chat with Us</a></li>
-					  </ul>
-					  <ul className="nav navbar-nav navbar-right">
-					       <li id="bardh">Free Shipping && Unlimited stock(Just like their talents)</li>
-					       
-					     </ul>
-					</div>
-				</nav>
+			<nav className="navbar navbar-inverse">
+			<div className="container-fluid">
+			<div className="navbar-header">
+			<a className="navbar-brand" onClick={this.showProducts}>Taleas</a>
+			</div>
+			<ul className="nav navbar-nav">
+			<li className="active"><a onClick={this.showProducts}>Home</a></li>
+			<li> <a onClick={this.showXat}>Chat with Us</a></li>
+			</ul>
+			<ul className="nav navbar-nav navbar-right">
+			<li id="bardh">Free Shipping && Unlimited stock(Just like their talents)</li>
 
-				{!this.state.show_cart && !this.state.show_xat &&
-					<Products products={this.props.products} addCart={this.addCart} showCart={this.showCart}/> 
+			</ul>
+			</div>
+			</nav>
+
+			{!this.state.show_cart && !this.state.show_xat &&
+				<Products products={this.state.products} addCart={this.addCart} showCart={this.showCart}/> 
 				
-				}
+			}
 
-				{this.state.show_cart && !this.state.show_xat &&
-					<Cart />
-				}
+			{this.state.show_cart && !this.state.show_xat &&
+				<Cart />
+			}
 
-				{this.state.show_xat && 
-					<Xat />
-				}
+			{this.state.show_xat && 
+				<Xat />
+			}
 			</div>
 			);
 	}
 }
 
 
-ReactDOM.render( <Main products={products}  />
+ReactDOM.render( <Main   />
 	, document.getElementById('root'));
 
 

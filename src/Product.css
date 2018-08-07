@@ -1,4 +1,9 @@
 
+.col-md-3.XXX {
+    min-height: 450px;
+    max-height: 450px;
+    overflow: hidden;
+}
 
 #name {
 	color:#0055ff;
@@ -17,7 +22,7 @@
 }
 
 #img1 {
-    border-radius: 25px;
+    border-radius: 9px;
 }
 
 #quantity {

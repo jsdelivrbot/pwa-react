@@ -25,13 +25,13 @@ class CartProducts extends Component {
 
 			var result =cartdb.get(index);
 			result.onsuccess = function(event) {
-				data = parseFloat(event.target.result.price.toFixed(2)) * parseFloat(event.target.result.quantity.toFixed(2)) ;
+				data = event.target.result.price * event.target.result.quantity ;
 			}
 				var result23 =Tot.get("total");
 				result23.onerror=function(event){ console.log(result23.error)};
 				result23.onsuccess=function(event){ 
 					total= event.target.result.price;
-					total= parseFloat(total.toFixed(2)) - data;
+					total= total - data;
 					
 					var update = {
 						id:"total",
@@ -63,12 +63,14 @@ class CartProducts extends Component {
 
 	render() {
 			ren=this.props.refresh();
+			var link="http://localhost/prestashop/api/images/products/"+this.props.product.id+"/"+this.props.product.id_default_image;
+			console.log(this.props);
 		return (
 			<div >
 		
 				{!this.state.notshow && (<div className="row"> 
 					<div className="col-md-2 col-md-offset-2">
-						<img id="img2" alt=" " src={this.props.product.src} height="150" width="150" />
+						<img id="img2" alt=" " src={link} height="150" width="150" />
 						 <br/><br/><br/><br/>
 					</div>
 						<br/> <br/>
